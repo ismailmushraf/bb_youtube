@@ -1,0 +1,60 @@
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Main container: Split vertically into player and comments */
+#main-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  background: black; /* Fallback background */
+}
+
+/* Video player: occupies full height initially */
+#player {
+  height: 100%; /* Full viewport height */
+  width: 100%;
+  position: relative;
+  object-fit: cover; /* Ensures video covers the entire area */
+}
+
+#player iframe {
+  width: 100%;
+  height: 100%;
+  border: none; /* Removes border around the iframe */
+}
+
+/* Comments container: takes up the remaining space */
+#commentsContainer {
+  flex: 1; /* Takes the remaining space below the player */
+  overflow-y: auto; /* Scroll vertically for comments */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  background-color: #f9f9f9;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Comments section */
+.comments-section {
+  padding: 10px;
+}
+
+.comment {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+}

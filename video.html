@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Player | YouTube App</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/video.css">
+</head>
+
+<body>
+  <div id="main-container">
+    <!-- Video player -->
+    <div class="video-wrapper">
+      <div id="player">
+        <iframe id="youtubePlayer" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+      </div>
+    </div>
+
+    <!-- Comments container -->
+    <div id="commentsContainer">
+      <div class="comments-section">
+        <!-- Placeholder for dynamically loaded comments -->
+      </div>
+    </div>
+
+    <button id="loadMoreButton" onclick="loadMore('video')">Load More</button>
+  </div>
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Parse the query string for the videoId
+      var queryString = window.location.search.substring(1);
+      var queryParams = {};
+      queryString.split('&').forEach(function (pair) {
+        var parts = pair.split('=');
+        queryParams[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
+      });
+
+      var videoId = queryParams['videoId'];
+
+      window.currentVideoId = videoId;
+
+      if (videoId) {
+        // Set the iframe source to embed the YouTube video
+        var playerContainer = document.getElementById('player');
+        var iframe = playerContainer.querySelector('iframe');
+        iframe.src = 'https://www.youtube.com/embed/' + encodeURIComponent(videoId) +
+          '?rel=0&autoplay=1&enablejsapi=1&hd=1&vq=hd1080?cc_load_policy=1&cc_lang_pref=en';
+        fetchVideoComments(apiKey, videoId, function (comments) {
+          appendComments(comments);
+        }, function (error) {
+          console.error(error);
+        });
+      } else {
+        alert("No video selected.");
+      }
+    });
+
+  </script>
+  <script src="js/video.js"></script>
+  <script src="js/youtubeApi.js"></script>
+  <script src="js/home.js"></script>
+</body>
+
+</html>

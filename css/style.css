@@ -1,0 +1,123 @@
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+/* Header styles */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+header .logo h1 {
+  margin: 0;
+  font-size: 24px;
+  margin-right: 100px;
+}
+
+header .search-bar {
+  display: flex;
+  align-items: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+header .search-bar input {
+  padding: 8px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+header .search-bar button {
+  padding: 8px 16px;
+  background-color: #ff0000;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+header .search-bar button:hover {
+  background-color: #cc0000;
+}
+
+/* Video Grid */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Video card styles */
+.video-grid div {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.video-grid img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ddd;
+}
+
+.video-grid h3 {
+  margin: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+@media (max-width: 600px) {
+  header .search-bar {
+      max-width: 100%;
+  }
+
+  header .logo h1 {
+      font-size: 20px;
+  }
+}
+
+#loadMoreButton {
+  background-color: #007bff; /* Blue color */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Add some padding */
+  font-size: 16px; /* Adjust font size */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+#loadMoreButton:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+#loadMoreButton:active {
+  background-color: #003f7f; /* Even darker blue on click */
+}
+
+#loadMoreButton:disabled {
+  background-color: #cccccc; /* Disabled button color */
+  cursor: not-allowed; /* Show not-allowed cursor when disabled */
+}
+
+
+/* Center the button */
+#loadMoreButton {
+  display: block;
+  margin: 20px auto; /* Center horizontally and add margin */
+}

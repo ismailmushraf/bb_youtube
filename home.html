@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | YouTube App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h1>BBTube</h1>
+        </div>
+        <form id="searchForm" action="/search.html" method="get" class="search-bar">
+            <input id="searchBar" type="text" name="q" id="searchInput" placeholder="Search for videos..." required>
+            <button type="submit">Search</button>
+        </form>
+    </header>
+
+    <main>
+        <div id="content" class="video-grid"></div>
+    </main>
+
+    <script>
+        var apiToken = localStorage.getItem('youtubeApiToken');
+        
+        if (!apiToken) {
+            // If the token is not found, redirect the user to the index page
+            window.location.href = 'index.html';
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            loadTrending(); // Default tab on page load
+        });
+    </script>
+    <script src="js/youtubeApi.js"></script>
+    <script src="js/home.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter YouTube API Token</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="main-container">
+        <h1>Enter Your YouTube API Token</h1>
+        <form id="tokenForm">
+            <label for="apiToken">YouTube API Token:</label>
+            <input type="text" id="apiToken" name="apiToken" required>
+            <button type="submit">Submit</button>
+        </form>
+        <p id="error-message" style="color: red; display: none;">Please enter a valid YouTube API token.</p>
+    </div>
+
+    <script>
+        document.getElementById('tokenForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            var apiToken = document.getElementById('apiToken').value.trim();
+            if (apiToken) {
+                // Store API token in localStorage
+                localStorage.setItem('youtubeApiToken', apiToken);
+                
+                // Redirect to home page
+                window.location.href = 'home.html';
+            } else {
+                // Show error if the token is empty
+                document.getElementById('error-message').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
