@@ -18,29 +18,37 @@ body {
 .video-wrapper {
   position: relative;
   width: 100%;
-  height: 100vh; /* Full viewport height */
-  background: black; /* Fallback background */
+  height: 100vh;
+  /* Full viewport height */
+  background: black;
+  /* Fallback background */
 }
 
 /* Video player: occupies full height initially */
 #player {
-  height: 100%; /* Full viewport height */
+  height: 100%;
+  /* Full viewport height */
   width: 100%;
   position: relative;
-  object-fit: cover; /* Ensures video covers the entire area */
+  object-fit: cover;
+  /* Ensures video covers the entire area */
 }
 
 #player iframe {
   width: 100%;
   height: 100%;
-  border: none; /* Removes border around the iframe */
+  border: none;
+  /* Removes border around the iframe */
 }
 
 /* Comments container: takes up the remaining space */
 #commentsContainer {
-  flex: 1; /* Takes the remaining space below the player */
-  overflow-y: auto; /* Scroll vertically for comments */
-  overflow-x: hidden; /* Disable horizontal scroll */
+  flex: 1;
+  /* Takes the remaining space below the player */
+  overflow-y: auto;
+  /* Scroll vertically for comments */
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
   background-color: #f9f9f9;
   padding: 10px;
   box-sizing: border-box;
@@ -57,4 +65,31 @@ body {
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #fff;
+}
+
+.back-button {
+  position: absolute;
+  top: 10px;
+  /* Adjust as needed */
+  left: 10px;
+  /* Adjust as needed */
+  background-color: rgba(0, 0, 0, 0.7);
+  /* Semi-transparent background */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+  /* Ensure it overlays the video player */
+}
+
+.back-button:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.video-wrapper {
+  position: relative;
+  /* Make the wrapper a containing block */
 }

@@ -20,6 +20,7 @@
   <div id="main-container">
     <!-- Video player -->
     <div class="video-wrapper">
+      <button class="back-button" onclick="goBack()">Back</button>
       <div id="player">
         <iframe id="youtubePlayer" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
       </div>
@@ -37,6 +38,9 @@
   <script src="https://www.youtube.com/iframe_api"></script>
 
   <script>
+    function goBack() {
+      window.history.back(); // Navigate to the previous page in history
+    }
     document.addEventListener('DOMContentLoaded', function () {
       // Parse the query string for the videoId
       var queryString = window.location.search.substring(1);
