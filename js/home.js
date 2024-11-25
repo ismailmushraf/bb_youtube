@@ -72,15 +72,6 @@ function openChannel(channelId) {
   window.location.href = 'channel.html?channelId=' + encodeURIComponent(channelId);
 }
 
-function openSearchResultPage(query) {
-  if (!query) {
-    alert('Invalid query');
-    return;
-  }
-  // window.location.href = 'search.html?q=' + encodeURIComponent(query);
-  window.location.replace('search.html?q=' + encodeURIComponent(query));
-}
-
 function performSearch() {
   var query = document.getElementById('searchBar').value.trim();
   if (!query) {
