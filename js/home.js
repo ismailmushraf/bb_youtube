@@ -59,8 +59,9 @@ function openVideo(videoId) {
     alert('Invalid video ID');
     return;
   }
-
-  window.location.href = 'video.html?videoId=' + encodeURIComponent(videoId);
+  setTimeout(() => {
+    window.location.href = 'video.html?videoId=' + encodeURIComponent(videoId);
+  }, 500); 
 }
 
 // Function to handle opening a channel page
@@ -69,7 +70,9 @@ function openChannel(channelId) {
     alert('Invalid channel ID');
     return;
   }
-  window.location.href = 'channel.html?channelId=' + encodeURIComponent(channelId);
+  setTimeout(() => {
+    window.location.href = 'channel.html?channelId=' + encodeURIComponent(channelId);
+  }, 500); // Delays redirect by 500ms
 }
 
 function openSearchResultPage(query) {
@@ -77,7 +80,9 @@ function openSearchResultPage(query) {
     alert('Invalid query');
     return;
   }
-  window.location.href = 'search.html?query=' + encodeURIComponent(query);
+  setTimeout(() => {
+    window.location.href = 'search.html?query=' + encodeURIComponent(query);
+  }, 500); 
 }
 
 function performSearch() {
