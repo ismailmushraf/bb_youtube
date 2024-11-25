@@ -27,9 +27,12 @@
     <script>
         var apiToken = localStorage.getItem('youtubeApiToken');
 
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 500); // Delays redirect by 500ms
+        if (!apiToken) {
+            // If the token is not found, redirect the user to the index page
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 500);
+        }
         document.addEventListener('DOMContentLoaded', function () {
             loadTrending(); // Default tab on page load
         });
