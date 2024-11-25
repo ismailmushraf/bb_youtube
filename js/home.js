@@ -77,7 +77,7 @@ function openSearchResultPage(query) {
     alert('Invalid query');
     return;
   }
-  window.location.href = 'search.html?query=' + encodeURIComponent(query);
+  window.location.href = 'search.html?q=' + encodeURIComponent(query);
 }
 
 function performSearch() {
