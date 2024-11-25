@@ -29,7 +29,7 @@
 
         if (!apiToken) {
             // If the token is not found, redirect the user to the index page
-            setTimeout(() => {
+            setTimeout(function() {
                 window.location.href = 'index.html';
             }, 500);
         }
