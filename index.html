@@ -44,7 +44,7 @@
                 localStorage.setItem('youtubeApiToken', apiToken);
 
                 // Redirect to home page
-                window.location.href = 'home.html';
+                window.location.replace('/home.html');
             } else {
                 // Show error if the token is empty
                 document.getElementById('error-message').style.display = 'block';
