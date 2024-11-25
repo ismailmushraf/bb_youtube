@@ -32,7 +32,11 @@
 
   <script>
     function goBack() {
-      window.history.back(); // Navigate to the previous page in history
+      if (window.history.length > 1) {
+        window.history.back(); // Navigate to the previous page
+      } else {
+        window.location.href = '/'; // Fallback to home page or a defined fallback URL
+      }
     }
     document.addEventListener('DOMContentLoaded', function () {
       // Parse the query string for the videoId
