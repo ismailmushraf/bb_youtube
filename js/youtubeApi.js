@@ -7,48 +7,52 @@ var currentChannelId = null;
 var currentVideoId = null;
 
 function fetchTrendingVideos(apiKey, callback, errorCallback, pageToken) {
-  var url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=10' +
-            '&key=' + encodeURIComponent(apiKey);
+  try {
+    var url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=10' +
+      '&key=' + encodeURIComponent(apiKey);
 
-  if (pageToken) {
-    url += '&pageToken=' + encodeURIComponent(pageToken);
-  }
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', url, true);
-  xhr.onload = function() {
-    if (xhr.status >= 200 && xhr.status < 300) {
-      var data = JSON.parse(xhr.responseText);
-      nextPageToken = data.nextPageToken || null;
-      if (typeof callback === 'function') {
-        callback(data.items);
+    if (pageToken) {
+      url += '&pageToken=' + encodeURIComponent(pageToken);
+    }
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.onload = function () {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        var data = JSON.parse(xhr.responseText);
+        nextPageToken = data.nextPageToken || null;
+        if (typeof callback === 'function') {
+          callback(data.items);
+        }
+      } else {
+        if (typeof errorCallback === 'function') {
+          errorCallback('Failed to fetch trending videos. Status: ' + xhr.status);
+        }
       }
-    } else {
+    };
+    xhr.onerror = function () {
       if (typeof errorCallback === 'function') {
-        errorCallback('Failed to fetch trending videos. Status: ' + xhr.status);
+        errorCallback('Network error occurred while fetching trending videos.');
       }
-    }
-  };
-  xhr.onerror = function() {
-    if (typeof errorCallback === 'function') {
-      errorCallback('Network error occurred while fetching trending videos.');
-    }
-  };
-  xhr.send();
+    };
+    xhr.send();
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 // Fetch search results
 // Fetch search results for both videos and channels
 function fetchSearchResults(apiKey, query, callback, errorCallback, pageToken) {
-  var url = 'https://www.googleapis.com/youtube/v3/search?key=' + encodeURIComponent(apiKey) +
-            '&q=' + encodeURIComponent(query) +
-            '&part=snippet&type=video,channel&maxResults=10';
+  var url = 'https://www.googleapis.com/youtube/v3/search?key=' + apiKey +
+    '&q=' + query +
+    '&part=snippet&type=video,channel&maxResults=10';
 
   if (pageToken) {
-    url += '&pageToken=' + encodeURIComponent(pageToken);
+    url += '&pageToken=' + pageToken;
   }
   var xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
-  xhr.onload = function() {
+  xhr.onload = function () {
     if (xhr.status >= 200 && xhr.status < 300) {
       var data = JSON.parse(xhr.responseText);
       nextPageToken = data.nextPageToken || null;
@@ -61,7 +65,7 @@ function fetchSearchResults(apiKey, query, callback, errorCallback, pageToken) {
       }
     }
   };
-  xhr.onerror = function() {
+  xhr.onerror = function () {
     if (typeof errorCallback === 'function') {
       errorCallback('Network error occurred while fetching search results.');
     }
@@ -72,15 +76,15 @@ function fetchSearchResults(apiKey, query, callback, errorCallback, pageToken) {
 // Fetch videos from a specific channel
 function fetchChannelVideos(apiKey, channelId, callback, errorCallback, pageToken) {
   var url = 'https://www.googleapis.com/youtube/v3/search?key=' + encodeURIComponent(apiKey) +
-            '&channelId=' + encodeURIComponent(channelId) +
-            '&part=snippet&order=date&maxResults=10';
+    '&channelId=' + encodeURIComponent(channelId) +
+    '&part=snippet&order=date&maxResults=10';
 
   if (pageToken) {
     url += '&pageToken=' + encodeURIComponent(pageToken);
-  } 
+  }
   var xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
-  xhr.onload = function() {
+  xhr.onload = function () {
     if (xhr.status >= 200 && xhr.status < 300) {
       var data = JSON.parse(xhr.responseText);
       nextPageToken = data.nextPageToken || null;
@@ -93,7 +97,7 @@ function fetchChannelVideos(apiKey, channelId, callback, errorCallback, pageToke
       }
     }
   };
-  xhr.onerror = function() {
+  xhr.onerror = function () {
     if (typeof errorCallback === 'function') {
       errorCallback('Network error occurred while fetching channel videos.');
     }
