@@ -1,9 +1,9 @@
 
 
 function loadTrending() {
-  fetchTrendingVideos(apiKey, function(videos) {
+  fetchTrendingVideos(apiKey, function (videos) {
     displayVideos(videos);
-  }, function(error) {
+  }, function (error) {
     console.error(error);
   });
 }
@@ -11,7 +11,7 @@ function loadTrending() {
 function displayVideos(results, append) {
   var content = document.getElementById('content');
   if (!append) content.innerHTML = '';
-  
+
   // Loop through the results array
   for (var i = 0; i < results.length; i++) {
     var result = results[i];
@@ -21,9 +21,9 @@ function displayVideos(results, append) {
       // Video result
       var videoId = result.id.videoId;
       div.innerHTML = '<img src="' + result.snippet.thumbnails.medium.url + '" alt="Video thumbnail">' +
-                      '<h3>' + result.snippet.title + '</h3>';
-      div.onclick = (function(videoId) {
-        return function() {
+        '<h3>' + result.snippet.title + '</h3>';
+      div.onclick = (function (videoId) {
+        return function () {
           openVideo(videoId);
         };
       })(videoId); // Create a closure to bind the videoId
@@ -31,9 +31,9 @@ function displayVideos(results, append) {
       // Channel result
       var channelId = result.id.channelId;
       div.innerHTML = '<img src="' + result.snippet.thumbnails.medium.url + '" alt="Channel thumbnail">' +
-                      '<h3>' + result.snippet.title + '</h3>';
-      div.onclick = (function(channelId) {
-        return function() {
+        '<h3>' + result.snippet.title + '</h3>';
+      div.onclick = (function (channelId) {
+        return function () {
           openChannel(channelId);
         };
       })(channelId); // Create a closure to bind the channelId
@@ -41,14 +41,14 @@ function displayVideos(results, append) {
       // Trending video result
       var trendingVideoId = result.id;
       div.innerHTML = '<img src="' + result.snippet.thumbnails.medium.url + '" alt="Video thumbnail">' +
-                      '<h3>' + result.snippet.title + '</h3>';
-      div.onclick = (function(trendingVideoId) {
-        return function() {
+        '<h3>' + result.snippet.title + '</h3>';
+      div.onclick = (function (trendingVideoId) {
+        return function () {
           openVideo(trendingVideoId);
         };
       })(trendingVideoId); // Create a closure to bind the trendingVideoId
     }
-    
+
     content.appendChild(div);
   }
 }
@@ -73,16 +73,21 @@ function openChannel(channelId) {
 }
 
 function performSearch() {
-  var query = document.getElementById('searchBar').value.trim();
-  if (!query) {
-    alert("Please enter a search term.");
-    return;
+  try {
+    var query = document.getElementById('searchBar').value.trim();
+    if (!query) {
+      alert("Please enter a search term.");
+      return;
+    }
+    fetchSearchResults(apiKey, query, function (videos) {
+      displayVideos(videos);
+    }, function (error) {
+      console.error(error);
+    });
+  } catch(e) {
+    console.log(e);
   }
-  fetchSearchResults(apiKey, query, function(videos) {
-    displayVideos(videos);
-  }, function(error) {
-    console.error(error);
-  });
+
 }
 
 function loadMore(type) {
@@ -93,9 +98,9 @@ function loadMore(type) {
       console.error(error);
     }, nextPageToken);
   } else if (type == 'search') {
-    fetchSearchResults(apiKey, window.currentQuery, function(videos) {
+    fetchSearchResults(apiKey, window.currentQuery, function (videos) {
       displayVideos(videos, true);
-    }, function(error) {
+    }, function (error) {
       console.error(error);
     }, nextPageToken);
   } else if (type == 'channel') {
