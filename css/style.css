@@ -74,7 +74,7 @@ header .search-bar button:hover {
   border-bottom: 1px solid #ddd;
 }
 
-.video-grid h3 {
+.video-grid h3, p {
   margin: 10px;
   font-size: 16px;
   color: #333;

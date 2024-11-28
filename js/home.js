@@ -20,33 +20,49 @@ function displayVideos(results, append) {
     if (result.id.kind === 'youtube#video') {
       // Video result
       var videoId = result.id.videoId;
-      div.innerHTML = '<img src="' + result.snippet.thumbnails.medium.url + '" alt="Video thumbnail">' +
-        '<h3>' + result.snippet.title + '</h3>';
+      var postedDate = new Date(result.snippet.publishedAt).toLocaleDateString();
+      postedDate = timeSince(postedDate);
+
+      div.innerHTML = `
+        <img src="${result.snippet.thumbnails.medium.url}" alt="Video thumbnail">
+        <h3>${result.snippet.title}</h3>
+        <p>Posted ${postedDate}</p>
+      `;
       div.onclick = (function (videoId) {
         return function () {
           openVideo(videoId);
         };
-      })(videoId); // Create a closure to bind the videoId
+      })(videoId);
     } else if (result.id.kind === 'youtube#channel') {
       // Channel result
       var channelId = result.id.channelId;
-      div.innerHTML = '<img src="' + result.snippet.thumbnails.medium.url + '" alt="Channel thumbnail">' +
-        '<h3>' + result.snippet.title + '</h3>';
+
+      div.innerHTML = `
+        <img src="${result.snippet.thumbnails.medium.url}" alt="Channel thumbnail">
+        <h3>${result.snippet.title}</h3>
+        <p>Channel</p>
+      `;
       div.onclick = (function (channelId) {
         return function () {
           openChannel(channelId);
         };
-      })(channelId); // Create a closure to bind the channelId
+      })(channelId);
     } else if (result.kind === 'youtube#video') {
       // Trending video result
       var trendingVideoId = result.id;
-      div.innerHTML = '<img src="' + result.snippet.thumbnails.medium.url + '" alt="Video thumbnail">' +
-        '<h3>' + result.snippet.title + '</h3>';
+      var trendingPostedDate = new Date(result.snippet.publishedAt).toLocaleDateString();
+      trendingPostedDate = timeSince(trendingPostedDate);
+
+      div.innerHTML = `
+        <img src="${result.snippet.thumbnails.medium.url}" alt="Video thumbnail">
+        <h3>${result.snippet.title}</h3>
+        <p>Posted ${trendingPostedDate}</p>
+      `;
       div.onclick = (function (trendingVideoId) {
         return function () {
           openVideo(trendingVideoId);
         };
-      })(trendingVideoId); // Create a closure to bind the trendingVideoId
+      })(trendingVideoId);
     }
 
     content.appendChild(div);
@@ -72,24 +88,6 @@ function openChannel(channelId) {
   window.location.href = 'channel.html?channelId=' + encodeURIComponent(channelId);
 }
 
-function performSearch() {
-  try {
-    var query = document.getElementById('searchBar').value.trim();
-    if (!query) {
-      alert("Please enter a search term.");
-      return;
-    }
-    fetchSearchResults(apiKey, query, function (videos) {
-      displayVideos(videos);
-    }, function (error) {
-      console.error(error);
-    });
-  } catch(e) {
-    console.log(e);
-  }
-
-}
-
 function loadMore(type) {
   if (type == 'video') {
     fetchVideoComments(apiKey, window.currentVideoId, function (comments) {
@@ -110,4 +108,31 @@ function loadMore(type) {
       alert(error);
     }, nextPageToken);
   }
+}
+
+function timeSince(date) {
+  var now = new Date();
+  var past = new Date(date);
+  var seconds = Math.floor((now - past) / 1000);
+
+  var intervals = {
+    year: 31536000, // 60 * 60 * 24 * 365
+    month: 2592000, // 60 * 60 * 24 * 30
+    week: 604800, // 60 * 60 * 24 * 7
+    day: 86400, // 60 * 60 * 24
+    hour: 3600, // 60 * 60
+    minute: 60,
+    second: 1
+  };
+
+  for (var interval in intervals) {
+    var time = Math.floor(seconds / intervals[interval]);
+    if (time >= 1) {
+      return time === 1
+        ? "a " + interval + " ago"
+        : time + " " + interval + "s ago";
+    }
+  }
+
+  return "just now"; // When the difference is less than a second
 }
