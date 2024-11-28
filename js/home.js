@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // If the token is not found, redirect the user to the index page
       window.location.replace('/index.html')
   } else {
-    loadTrending();
+    // loadTrending();
   }
 })
 
