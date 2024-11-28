@@ -27,29 +27,29 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var apiToken = localStorage.getItem('youtubeApiToken');
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     var apiToken = localStorage.getItem('youtubeApiToken');
 
-            if (apiToken) {
-                // If the token is not found, redirect the user to the index page
-                window.location.href = 'home.html';
-            }
-        });
-        document.getElementById('tokenForm').addEventListener('submit', function (event) {
-            event.preventDefault();
+        //     if (apiToken) {
+        //         // If the token is not found, redirect the user to the index page
+        //         window.location.replace('home.html');
+        //     }
+        // });
+        // document.getElementById('tokenForm').addEventListener('submit', function (event) {
+        //     event.preventDefault();
 
-            var apiToken = document.getElementById('apiToken').value.trim();
-            if (apiToken) {
-                // Store API token in localStorage
-                localStorage.setItem('youtubeApiToken', apiToken);
+        //     var apiToken = document.getElementById('apiToken').value.trim();
+        //     if (apiToken) {
+        //         // Store API token in localStorage
+        //         localStorage.setItem('youtubeApiToken', apiToken);
 
-                // Redirect to home page
-                window.location.replace('/home.html');
-            } else {
-                // Show error if the token is empty
-                document.getElementById('error-message').style.display = 'block';
-            }
-        });
+        //         // Redirect to home page
+        //         window.location.replace('/home.html');
+        //     } else {
+        //         // Show error if the token is empty
+        //         document.getElementById('error-message').style.display = 'block';
+        //     }
+        // });
     </script>
 </body>
 

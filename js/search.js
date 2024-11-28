@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Get the query parameter from the URL
     setTimeout(function () {
-        // performSearch();
+        performSearch();
     }, 2000);
 });
 
