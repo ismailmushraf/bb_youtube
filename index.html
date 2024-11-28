@@ -28,28 +28,46 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Check if localStorage is available
+            if (typeof localStorage === 'undefined') {
+                alert('Your browser does not support localStorage. Please upgrade your browser.');
+                return;
+            }
+
+            // Get the API token from localStorage
             var apiToken = localStorage.getItem('youtubeApiToken');
 
             if (apiToken) {
-                // If the token is not found, redirect the user to the index page
-                window.location.replace('/home.html');
+                // Redirect to the home page if token exists
+                redirectTo('/home.html');
             }
         });
+
         document.getElementById('tokenForm').addEventListener('submit', function (event) {
             event.preventDefault();
 
-            var apiToken = document.getElementById('apiToken').value.trim();
+            // Cache DOM elements
+            var apiTokenInput = document.getElementById('apiToken');
+            var errorMessage = document.getElementById('error-message');
+
+            var apiToken = apiTokenInput.value.trim();
             if (apiToken) {
-                // Store API token in localStorage
+                // Store the API token in localStorage
                 localStorage.setItem('youtubeApiToken', apiToken);
 
-                // Redirect to home page
-                window.location.replace('/home.html');
+                // Redirect to the home page
+                redirectTo('/home.html');
             } else {
-                // Show error if the token is empty
-                document.getElementById('error-message').style.display = 'block';
+                // Show the error message if the input is empty
+                errorMessage.style.display = 'block';
             }
         });
+
+        // Utility function for navigation
+        function redirectTo(url) {
+            // Using href for better compatibility
+            window.location.href = url;
+        }
     </script>
 </body>
 
