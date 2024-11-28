@@ -4,10 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
   if (!apiToken) {
       // If the token is not found, redirect the user to the index page
       window.location.replace('/index.html')
+  } else {
+    loadTrending();
   }
-  document.addEventListener('DOMContentLoaded', function () {
-      loadTrending(); // Default tab on page load
-  });
 })
 
 function loadTrending() {
