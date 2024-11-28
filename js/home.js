@@ -16,53 +16,54 @@ function displayVideos(results, append) {
   for (var i = 0; i < results.length; i++) {
     var result = results[i];
     var div = document.createElement('div');
+    var videoId, postedDate, trendingPostedDate, channelId;
 
     if (result.id.kind === 'youtube#video') {
       // Video result
-      var videoId = result.id.videoId;
-      var postedDate = new Date(result.snippet.publishedAt).toLocaleDateString();
+      videoId = result.id.videoId;
+      postedDate = new Date(result.snippet.publishedAt).toLocaleDateString();
       postedDate = timeSince(postedDate);
 
-      div.innerHTML = `
-        <img src="${result.snippet.thumbnails.medium.url}" alt="Video thumbnail">
-        <h3>${result.snippet.title}</h3>
-        <p>Posted ${postedDate}</p>
-      `;
+      div.innerHTML =
+        '<img src="' + result.snippet.thumbnails.medium.url + '" alt="Video thumbnail">' +
+        '<h3>' + result.snippet.title + '</h3>' +
+        '<p>Posted ' + postedDate + '</p>';
+
       div.onclick = (function (videoId) {
         return function () {
           openVideo(videoId);
         };
-      })(videoId);
+      })(videoId); // Closure to bind the videoId
     } else if (result.id.kind === 'youtube#channel') {
       // Channel result
-      var channelId = result.id.channelId;
+      channelId = result.id.channelId;
 
-      div.innerHTML = `
-        <img src="${result.snippet.thumbnails.medium.url}" alt="Channel thumbnail">
-        <h3>${result.snippet.title}</h3>
-        <p>Channel</p>
-      `;
+      div.innerHTML =
+        '<img src="' + result.snippet.thumbnails.medium.url + '" alt="Channel thumbnail">' +
+        '<h3>' + result.snippet.title + '</h3>' +
+        '<p>Channel</p>';
+
       div.onclick = (function (channelId) {
         return function () {
           openChannel(channelId);
         };
-      })(channelId);
+      })(channelId); // Closure to bind the channelId
     } else if (result.kind === 'youtube#video') {
       // Trending video result
-      var trendingVideoId = result.id;
-      var trendingPostedDate = new Date(result.snippet.publishedAt).toLocaleDateString();
+      trendingVideoId = result.id;
+      trendingPostedDate = new Date(result.snippet.publishedAt).toLocaleDateString();
       trendingPostedDate = timeSince(trendingPostedDate);
 
-      div.innerHTML = `
-        <img src="${result.snippet.thumbnails.medium.url}" alt="Video thumbnail">
-        <h3>${result.snippet.title}</h3>
-        <p>Posted ${trendingPostedDate}</p>
-      `;
+      div.innerHTML =
+        '<img src="' + result.snippet.thumbnails.medium.url + '" alt="Video thumbnail">' +
+        '<h3>' + result.snippet.title + '</h3>' +
+        '<p>Posted ' + trendingPostedDate + '</p>';
+
       div.onclick = (function (trendingVideoId) {
         return function () {
           openVideo(trendingVideoId);
         };
-      })(trendingVideoId);
+      })(trendingVideoId); // Closure to bind the trendingVideoId
     }
 
     content.appendChild(div);
