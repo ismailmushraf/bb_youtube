@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function displayChannel(results, append) {
-    var content = document.getElementById('contentSearch');
+    var content = document.getElementById('contentChannel');
     if (!append) content.innerHTML = '';
 
     // Loop through the results array
