@@ -67,7 +67,7 @@ function displayChannel(results, append) {
 
 function loadMore() {
     fetchChannelVideos(apiKey, window.currentChannelId, function (videos) {
-        displayVideos(videos, true);
+        displayChannel(videos, true);
     }, function (error) {
         alert(error);
     }, nextPageToken);
