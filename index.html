@@ -4,71 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enter YouTube API Token</title>
+    <title>Home | YouTube App</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
 
-    <link rel="apple-touch-icon" href="logo.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="logo.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="logo.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="logo.png">
-    <link rel="icon" href="logo.png" type="image/png" />
+    <script src="js/youtubeApi.js"></script>
+    <script src="js/common.js"></script>
 </head>
 
 <body>
-    <div id="main-container">
-        <h1>Enter Your YouTube API Token</h1>
-        <form id="tokenForm">
-            <label for="apiToken">YouTube API Token:</label>
-            <input type="text" id="apiToken" name="apiToken" required>
-            <button type="submit">Submit</button>
+    <header>
+        <div class="logo">
+            <h1>BBTube</h1>
+        </div>
+        <form id="searchForm" action="search.html" method="get" class="search-bar">
+            <input id="searchBar" type="text" name="q" placeholder="Search for videos..." required>
+            <button type="submit">Search</button>
         </form>
-        <p id="error-message" style="color: red; display: none;">Please enter a valid YouTube API token.</p>
-    </div>
+    </header>
+
+    <main>
+        <div id="contentHome" class="video-grid"></div>
+    </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Check if localStorage is available
-            if (typeof localStorage === 'undefined') {
-                alert('Your browser does not support localStorage. Please upgrade your browser.');
-                return;
-            }
 
-            // Get the API token from localStorage
-            var apiToken = localStorage.getItem('youtubeApiToken');
-
-            if (apiToken) {
-                // Redirect to the home page if token exists
-                redirectTo('/home.html');
-            }
-        });
-
-        document.getElementById('tokenForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            // Cache DOM elements
-            var apiTokenInput = document.getElementById('apiToken');
-            var errorMessage = document.getElementById('error-message');
-
-            var apiToken = apiTokenInput.value.trim();
-            if (apiToken) {
-                // Store the API token in localStorage
-                localStorage.setItem('youtubeApiToken', apiToken);
-
-                // Redirect to the home page
-                redirectTo('/home.html');
-            } else {
-                // Show the error message if the input is empty
-                errorMessage.style.display = 'block';
-            }
-        });
-
-        // Utility function for navigation
-        function redirectTo(url) {
-            // Using href for better compatibility
-            window.location.href = url;
-        }
     </script>
+    <script src="js/home.js"></script>
 </body>
 
 </html>

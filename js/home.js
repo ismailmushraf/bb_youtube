@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (!apiToken) {
       // If the token is not found, redirect the user to the index page
-      window.location.replace('/index.html')
+      window.location.replace('login.html')
   } else {
     loadTrending();
   }
