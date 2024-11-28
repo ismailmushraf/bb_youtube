@@ -1,5 +1,11 @@
 
-
+function loadMore() {
+  fetchVideoComments(apiKey, window.currentVideoId, function (comments) {
+    appendComments(comments);
+  }, function (error) {
+    console.error(error);
+  }, nextPageToken);
+}
 
 function appendComments(comments) {
   var container = document.getElementById('commentsContainer');
